@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>CRUD</title>
+
+    <style>
+        #data-table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #data-table th, #data-table td {
+            border: 1px solid #000000;
+            padding: 10px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        #data-table th {
+            background-color: #f2f2f2;
+        }
+        .edit-btn, .delete-btn {
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 5px;
+        }
+        body {
+            padding: 100px;
+            background-image: url('https://us.123rf.com/450wm/natrot/natrot2202/natrot220200067/181942485-escaparate-de-productos-fondo-de-sala-de-estudio-negro-usar-como-montaje-para-exhibici%C3%B3n-de.jpg?ver=6');
+            background-size: cover;
+        }
+        .white-text {
+            color: white;
+        }
+        .centro {
+            text-align: center;
+            color: white;
+        }
+        .custom-width-form {
+            width: 90%;
+            margin: auto; 
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="centro">REGISTRAR USUARIOS </h1>
+    <form class="row g-3 needs-validation custom-width-form" onsubmit="event.preventDefault(); guardarRegistro()">
+        <div class="col-md-4">
+            <label for="validationCustom01" class="form-label white-text">CÉDULA:</label>
+            <input type="text" class="form-control" id="validationCustom01" pattern="[0-9]{10}" required>
+            <div class="invalid-feedback">
+              Por favor, ingresa un número de cédula válido (10 digitos).
+            </div>
+          </div>
+        
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label white-text">NOMBRE:</label>
+            <input type="text" class="form-control" id="validationCustom02" pattern="[A-Za-z\s]+" maxlength="20" required>
+            <div class="invalid-feedback">
+              Por favor, ingresa un nombre válido (solo letras y espacios).
+            </div>
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
+        
+          <div class="col-md-4">
+            <label for="validationCustom03" class="form-label white-text">TELÉFONO:</label>
+            <input type="tel" class="form-control" id="validationCustom03" pattern="[0-9]{10}" inputmode="numeric" required>
+            <div class="invalid-feedback">
+              Por favor, ingresa un número de teléfono válido (solo números).
+            </div>
+          </div>
+        
+        
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label white-text">CORREO:</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend">@</span>
+              <input type="email" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
+              <div class="invalid-feedback">
+                Por favor, ingresa un correo electrónico válido.
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-md-4">
+            <label for="validationCustom05" class="form-label white-text">DIRECCIÓN:</label>
+            <input type="text" class="form-control" id="validationCustom05" maxlength="40" pattern="[A-Za-z0-9\s]+"
+                   required>
+            <div class="invalid-feedback">
+              Por favor, ingresa una dirección válida (solo letras, números y espacios).
+            </div>
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
+        
+          <div class="col-md-4">
+            <label for="validationCustom06" class="form-label white-text">CARGO:</label>
+            <input type="text" class="form-control" id="validationCustom06" maxlength="20" pattern="[A-Za-z\s]+"
+                   required>
+            <div class="invalid-feedback">
+              Por favor, ingresa un cargo válido (solo letras y espacios).
+            </div>
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
+        
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-secondary" onclick="limpiarCampos()">Cancelar</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-warning" id="updateButton" style="display: none;" onclick="actualizarRegistro()">Actualizar</button>
+        </div>
+    </form>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>CÉDULA</th>
+                <th>NOMBRE</th>
+                <th>TELÉFONO</th>
+                <th>CORREO</th>
+                <th>DIRECCIÓN</th>
+                <th>CARGO</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+    <script>
+        
+        let usuarioEditandoId = null;
+        $(document).ready(function () {
+            // Hacer la solicitud al servidor para obtener los datos
+            $.get('/users', function (data) {
+                // Limpiar el cuerpo de la tabla antes de agregar nuevos datos
+                $('#table-body').empty();
+    
+                // Iterar sobre los datos y agregar filas a la tabla
+                data.forEach(function (usuario) {
+                    $('#table-body').append(`
+                        <tr>
+                            <td>${usuario.cedula}</td>
+                            <td>${usuario.nombre}</td>
+                            <td>${usuario.telefono}</td>
+                            <td>${usuario.correo}</td>
+                            <td>${usuario.direccion}</td>
+                            <td>${usuario.cargo}</td>
+                            <td>
+                                <button class="btn btn-warning edit-btn" onclick="modificarUsuario('${usuario.id}')">Editar</button>
+                                <button class="btn btn-danger delete-btn" onclick="eliminarUsuario('${usuario.id}')">Eliminar</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            });
+        });
+        function guardarRegistro() {
+        // Recopilar datos del formulario
+        const cedula = $('#validationCustom01').val();
+        const nombre = $('#validationCustom02').val();
+        const telefono = $('#validationCustom03').val();
+        const correo = $('#validationCustomUsername').val();
+        const genero = $('#validationCustom04').val();
+        const direccion = $('#validationCustom05').val();
+        const cargo = $('#validationCustom06').val();
+
+        // Crear objeto con datos del usuario
+        const nuevoUsuario = {
+            cedula: cedula,
+            nombre: nombre,
+            telefono: telefono,
+            correo: correo,
+            genero: genero,
+            direccion: direccion,
+            cargo: cargo
+        };
+
+        // Hacer la solicitud al servidor para guardar el nuevo usuario
+        $.post('/users', nuevoUsuario, function (data) {
+            // Actualizar la tabla con los nuevos datos
+            const newRow = $(`
+                <tr id="${data.id}">
+                    <td>${nuevoUsuario.cedula}</td>
+                    <td>${nuevoUsuario.nombre}</td>
+                    <td>${nuevoUsuario.telefono}</td>
+                    <td>${nuevoUsuario.correo}</td>
+                    <td>${nuevoUsuario.direccion}</td>
+                    <td>${nuevoUsuario.cargo}</td>
+                    <td>
+                        <button class="btn btn-warning edit-btn" onclick="modificarUsuario('${usuario.id}')">Editar</button>
+                        <button class="btn btn-danger delete-btn" onclick="eliminarUsuario('${usuario.id}')">Eliminar</button>
+                    </td>
+                </tr>
+            `);
+
+            // Limpiar los campos del formulario
+            $('#validationCustom01, #validationCustom02, #validationCustom03, #validationCustomUsername, #validationCustom05, #validationCustom06').val('');
+
+            // Recargar la página
+            location.reload();
+        })
+        .fail(function (error) {
+            console.error("Error al guardar usuario:", error);
+        });location.reload();
+        }
+
+
+        function eliminarUsuario(userId) {
+            // Hacer la solicitud al servidor para eliminar el usuario
+            $.ajax({
+                url: `/users/${userId}`,
+                type: 'DELETE',
+                success: function (data) {
+                    console.log(data);
+                    // Eliminar la fila de la tabla correspondiente al usuario eliminado
+                    $(`#${userId}`).remove();
+                },
+                error: function (error) {
+                    console.error("Error al eliminar usuario:", error);
+                }
+            });location.reload();
+        }
+        function modificarUsuario(id) {
+            // Hacer la solicitud al servidor para obtener los datos del usuario a editar
+            $.get(`/users/${id}`, function (usuario) {
+                console.log('Datos del usuario a editar:', usuario);
+
+                // Llena los campos del formulario con los datos del usuario
+                $('#validationCustom01').prop('disabled', true).val(usuario.cedula);
+                $('#validationCustom02').val(usuario.nombre);
+                $('#validationCustom03').val(usuario.telefono);
+                $('#validationCustomUsername').val(usuario.correo);
+                $('#validationCustom05').val(usuario.direccion);
+                $('#validationCustom06').val(usuario.cargo);
+
+                // Guarda el ID del usuario que se está editando
+                usuarioEditandoId = id;
+                $('#submitButton').hide();
+                $('#updateButton').show();
+            });
+        }
+        function actualizarRegistro() {
+            // Recopilar datos del formulario
+            const cedula = $('#validationCustom01').val();
+            const nombre = $('#validationCustom02').val();
+            const telefono = $('#validationCustom03').val();
+            const correo = $('#validationCustomUsername').val();
+            const direccion = $('#validationCustom05').val();
+            const cargo = $('#validationCustom06').val();
+            
+            const cedulaValidation = validarCedula(cedula);
+            const nombreValidation = validarNombre(nombre);
+            const telefonoValidation = validarTelefono(telefono);
+            const correoValidation = validarCorreo(correo);
+            const direccionValidation = validarDireccion(direccion);
+            const cargoValidation = validarCargo(cargo);
+
+            mostrarMensajeError('validationCustom01', cedulaValidation.message);
+            mostrarMensajeError('validationCustom02', nombreValidation.message);
+            mostrarMensajeError('validationCustom03', telefonoValidation.message);
+            mostrarMensajeError('validationCustomUsername', correoValidation.message);
+            mostrarMensajeError('validationCustom05', direccionValidation.message);
+            mostrarMensajeError('validationCustom06', cargoValidation.message);
+            if (
+                !cedulaValidation.isValid ||
+                !nombreValidation ||
+                !telefonoValidation.isValid ||
+                !correoValidation.isValid ||
+                !direccionValidation.isValid ||
+                !cargoValidation.isValid
+            ) {
+        // Mostrar un mensaje de error general
+        console.error("Error en las validaciones. Por favor, revisa los campos.");
+        return;
+    }
+            // Crear objeto con datos actualizados del usuario
+            const usuarioActualizado = {
+                cedula: cedula,
+                nombre: nombre,
+                telefono: telefono,
+                correo: correo,
+                direccion: direccion,
+                cargo: cargo
+            };
+
+            // Hacer la solicitud al servidor para actualizar el usuario
+            $.ajax({
+                url: `/users/${usuarioEditandoId}`,
+                type: 'PUT',
+                data: usuarioActualizado,
+                success: function (data) {
+                    console.log(data);
+
+                    // Actualizar la fila en la tabla con los datos actualizados
+                    $(`#${usuarioEditandoId}`).html(`
+                        <td>${usuarioActualizado.cedula}</td>
+                        <td>${usuarioActualizado.nombre}</td>
+                        <td>${usuarioActualizado.telefono}</td>
+                        <td>${usuarioActualizado.correo}</td>
+                        <td>${usuarioActualizado.direccion}</td>
+                        <td>${usuarioActualizado.cargo}</td>
+                        <td>
+                            <button class="btn btn-warning edit-btn" onclick="modificarUsuario('${usuarioEditandoId}')">Editar</button>
+                            <button class="btn btn-danger delete-btn" onclick="eliminarUsuario('${usuarioEditandoId}')">Eliminar</button>
+                        </td>
+                    `);
+
+                    // Limpiar los campos del formulario y restablecer el estado
+                    $('#validationCustom01, #validationCustom02, #validationCustom03, #validationCustomUsername, #validationCustom05, #validationCustom06').val('');
+                    usuarioEditandoId = null;
+                    $('#submitButton').show();
+                    $('#updateButton').hide();
+                },
+                error: function (error) {
+                    console.error("Error al actualizar usuario:", error);
+                }
+
+            });location.reload();
+        }
+        function validarCedula(cedula) {
+            const isValid = /[0-9]{10}/.test(cedula);
+            return { isValid, message: isValid ? '' : 'Por favor, ingresa una cédula válida (10 dígitos).' };
+        }
+
+
+        function validarNombre(nombre) {
+            // Implementa la lógica de validación para el nombre
+            return /^[A-Za-z\s]+$/.test(nombre);
+        }
+
+        function validarNombre(nombre) {
+            const isValid = /^[A-Za-z\s]+$/.test(nombre);
+            return { isValid, message: isValid ? '' : 'Por favor, ingresa un nombre válido (solo letras y espacios).' };
+        }
+
+        function validarTelefono(telefono) {
+            const isValid = /[0-9]{10}/.test(telefono);
+            return { isValid, message: isValid ? '' : 'Por favor, ingresa un número de teléfono válido (10 números).' };
+        }
+
+        function validarCorreo(correo) {
+            const isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(correo);
+            return { isValid, message: isValid ? '' : 'Por favor, ingresa un correo electrónico válido.' };
+        }
+
+        function validarDireccion(direccion) {
+            const isValid = /^[A-Za-z0-9\s]+$/.test(direccion);
+            return { isValid, message: isValid ? '' : 'Por favor, ingresa una dirección válida (solo letras, números y espacios).' };
+        }
+
+        function validarCargo(cargo) {
+            const isValid = /^[A-Za-z\s]+$/.test(cargo);
+            return { isValid, message: isValid ? '' : 'Por favor, ingresa un cargo válido (solo letras y espacios).' };
+        }
+        function mostrarMensajeError(elementId, message) {
+            // Mostrar el mensaje de error en el elemento correspondiente
+            const element = $(`#${elementId}`);
+            if (!message) {
+                element.removeClass('is-invalid');
+                return;
+            }
+
+            element.addClass('is-invalid');
+            const feedbackElement = element.siblings('.invalid-feedback');
+            feedbackElement.text(message);
+        }
+        function limpiarCampos() {
+            // Limpiar los campos del formulario y restablecer el estado
+            $('#validationCustom01, #validationCustom02, #validationCustom03, #validationCustomUsername, #validationCustom05, #validationCustom06').val('');
+            usuarioEditandoId = null;
+            $('#validationCustom01').prop('disabled', false);
+            $('#submitButton').show();
+            $('#updateButton').hide();
+        }
+    </script>
+    
+</body>
+
+</html>
